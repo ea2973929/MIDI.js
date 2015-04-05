@@ -124,6 +124,25 @@
 		}
 	};
 
+
+	/* get/setVolume
+	--------------------------------------------------- */
+	root.getVolume = function(channelId) {
+		var channel = root.channels[channelId];
+		return channel && channel.volume
+	};
+
+	root.setVolume = function(channelId, volume) {
+		var channel = root.channels[channelId];
+		if (delay) {
+			return setTimeout(function() {
+				channel.volume = volume;
+			}, delay);
+		} else {
+			channel.volume = volume;
+		}
+	};
+
 	/* channels
 	--------------------------------------------------- */
 	root.channels = (function() { // 0 - 15 channels
@@ -135,7 +154,8 @@
 				mute: false,
 				mono: false,
 				omni: false,
-				solo: false
+			        solo: false,
+			        volume: 100
 			};
 		}
 		return channels;
